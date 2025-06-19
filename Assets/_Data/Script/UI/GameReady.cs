@@ -13,6 +13,7 @@ public class GameReady : MonoBehaviour
     {
         if (Mouse.current.leftButton.wasPressedThisFrame)
         {
+            Score.Instance.GetHighScore();
             Score.Instance.UpdateScore();
             this.gameObject.SetActive(false);
             Time.timeScale = 1.0f;

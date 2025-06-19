@@ -3,8 +3,8 @@ using UnityEngine.InputSystem;
 
 public class Fly : MonoBehaviour
 {
-    [SerializeField] private float velocity = 1.5f;
-    [SerializeField] private float rotaionSpeed = 10f;
+    [SerializeField] private float velocity = 16f;
+    [SerializeField] private float rotaionSpeed = 1f;
     private Rigidbody2D rb;
     private void Awake()
     {

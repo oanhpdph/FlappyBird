@@ -18,6 +18,10 @@ public class GameManager : MonoBehaviour
     }
     public void GameOver()
     {
+        if (Score.Instance.currentScore > PlayerPrefs.GetInt("HighScore", 0))
+        {
+            PlayerPrefs.SetInt("HighScore", Score.Instance.currentScore);
+        }
         gameOverCanvas.SetActive(true);
         Time.timeScale = 0;
     }

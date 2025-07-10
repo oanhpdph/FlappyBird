@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Fly : MonoBehaviour
 {
@@ -26,17 +25,15 @@ public class Fly : MonoBehaviour
 
     private void Tap()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        IOnClick onClick = new OnClick();
+        if (onClick.OnClick())
         {
             rb.velocity = Vector2.up * velocity;
             AudioManager.Instance.PlayAudioWing();
 
         }
     }
-    //private void OnTriggerEnter2D(Collider2D collision)
-    //{
-    //    GameManager.Instance.GameOver();
-    //}
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         GameManager.Instance.GameOver();

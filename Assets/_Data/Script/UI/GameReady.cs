@@ -1,17 +1,16 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 
 public class GameReady : MonoBehaviour
 {
-
     private void Update()
     {
         ClickHandle();
     }
     private void ClickHandle()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        IOnClick onClick = new OnClick();
+        if (onClick.OnClick())
         {
             Score.Instance.GetHighScore();
             Score.Instance.UpdateScore();

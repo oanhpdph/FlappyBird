@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
 
     private static GameManager instance;
     public static GameManager Instance => instance;
+    public float speedPipe = 5f;
+    public float proportion = 0;
     private void Awake()
     {
         if (instance == null)

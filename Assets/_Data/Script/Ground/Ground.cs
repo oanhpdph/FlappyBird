@@ -4,23 +4,23 @@ namespace Assets._Data.Script
 {
     public class Ground : MonoBehaviour
     {
-        [SerializeField] private float speed = 3.0f;
-        [SerializeField] private float width = 10f;
         private SpriteRenderer spriteRenderer;
-
-        private Vector2 startSize;
+        public Vector2 startPosition;
+        private IOutOfScreen outOfScreen;
         private void Start()
         {
+            outOfScreen = new OutOfScreen();
             spriteRenderer = GetComponent<SpriteRenderer>();
-            startSize = new Vector2(spriteRenderer.size.x, spriteRenderer.size.y);
+            startPosition = transform.position;
+            startPosition.x = 90;
         }
         private void Update()
         {
-            spriteRenderer.size = new Vector2(spriteRenderer.size.x + speed * Time.deltaTime, spriteRenderer.size.y);
-            if (spriteRenderer.size.x > width)
+            if (outOfScreen.IsCompleteOutOfLeftScreen(spriteRenderer, Camera.main) == true)
             {
-                spriteRenderer.size = startSize;
+                transform.position = startPosition;
             }
+            transform.position = transform.position + GameManager.Instance.speedPipe * Time.deltaTime * Vector3.left;
         }
     }
 }

@@ -1,17 +1,24 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class PipeSpawn : MonoBehaviour
 {
     [SerializeField] private GameObject pipePrefab;
     [SerializeField] private float maxTime = 1.7f;
-    [SerializeField] private float heightRange = 0.5f;
+    [SerializeField] private float heightRange = 12f;
     private float timer = 0;
     private List<GameObject> listPipe;
+    private float deltaY = 1;
+    private float minY = -4;
+    private float maxY = 6;
+    private float lastY = 0;
+    private int maxContinuous = 3;
+    private int currentContinuous = 1;
+
     private void Start()
     {
         listPipe = new List<GameObject>();
+        lastY = Random.Range(minY, maxY);
     }
     private void Update()
     {
@@ -22,11 +29,42 @@ public class PipeSpawn : MonoBehaviour
             timer = 0;
         }
     }
+    private GameObject GetPipe()
+    {
+        foreach (GameObject item in listPipe)
+        {
+            if (item.activeSelf == false)
+            {
+                return item;
+            }
+        }
+        return default;
+    }
 
     private void SpawnPipe()
     {
+        float newY = Mathf.Clamp(lastY + Mathf.Sign(Random.Range(-1, 1)) * Random.Range(deltaY / 2, deltaY), minY, maxY);
+        lastY = newY;
+        Vector3 spawnPos = new(transform.position.x, lastY, 0);
+
+        SpawnOne(spawnPos);
+        float random = Random.Range(0, 1 + GameManager.Instance.proportion);
+        if (random <= 1 || currentContinuous > maxContinuous)// 
+        {
+            deltaY = 5;
+            maxTime = 1.7f;
+            currentContinuous = 1;
+        }
+        else
+        {
+            maxTime = 0.65f;
+            deltaY = 1;
+            currentContinuous++;
+        }
+    }
+    private void SpawnOne(Vector3 spawnPos)
+    {
         GameObject pipe = GetPipe();
-        Vector3 spawnPos = transform.position + new Vector3(0, Random.Range(0, heightRange), 0);
 
         if (pipe == default)
         {
@@ -40,22 +78,5 @@ public class PipeSpawn : MonoBehaviour
             pipe.SetActive(true);
         }
         pipe.GetComponent<PipeMove>().Render();
-        StartCoroutine(ResetPipe(pipe));
-    }
-    private IEnumerator ResetPipe(GameObject pipe)
-    {
-        yield return new WaitForSeconds(5f);
-        pipe.SetActive(false);
-    }
-    private GameObject GetPipe()
-    {
-        foreach (GameObject item in listPipe)
-        {
-            if (item.activeSelf == false)
-            {
-                return item;
-            }
-        }
-        return default;
     }
 }

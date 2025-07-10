@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameOver : MonoBehaviour
 {
@@ -9,9 +8,8 @@ public class GameOver : MonoBehaviour
     }
     private void ClickHandle()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
-        {
+        IOnClick onClick = new OnClick();
+        if (onClick.OnClick())
             GameManager.Instance.RestarGame();
-        }
     }
 }

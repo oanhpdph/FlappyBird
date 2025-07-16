@@ -7,6 +7,7 @@ public class PipeMove : MonoBehaviour
     [SerializeField] private SpriteRenderer topSpriteRenderer;
     [SerializeField] private SpriteRenderer bottomSpriteRenderer;
     private IOutOfScreen outOfScreen;
+
     private void Start()
     {
         outOfScreen = new OutOfScreen();
@@ -18,6 +19,10 @@ public class PipeMove : MonoBehaviour
         {
             gameObject.SetActive(false);
         }
+    }
+    private void OnEnable()
+    {
+        Render();
     }
     public void Render()
     {

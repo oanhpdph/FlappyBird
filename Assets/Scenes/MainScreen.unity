@@ -881,9 +881,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   listBird:
-  - {fileID: 6624550221426921778, guid: 4452e0bb3b05e924096887df5d9c3bc2, type: 3}
+  - {fileID: 3127303750630004686, guid: e16d94d579af1794c9a2a3d9df6d1f7c, type: 3}
   - {fileID: 6624550221426921778, guid: 2c8eeb6e7db70b64598b3fc73fc7cc78, type: 3}
-  - {fileID: 6624550221426921778, guid: 4d1a5a6d98e34a4469d3ac0918bc7730, type: 3}
+  - {fileID: 3847908344298834986, guid: db5258f9e8e9fb447bf9010f21d23212, type: 3}
 --- !u!1 &919268616
 GameObject:
   m_ObjectHideFlags: 0

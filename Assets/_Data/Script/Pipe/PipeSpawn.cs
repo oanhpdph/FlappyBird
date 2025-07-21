@@ -16,7 +16,6 @@ public class PipeSpawn : MonoBehaviour
     private float lastY = 0;
     private int maxContinuous = 3;
     private int currentContinuous = 1;
-    private Vector3 spawnPos;
     private void Start()
     {
         listPipe = new List<GameObject>();
@@ -45,8 +44,12 @@ public class PipeSpawn : MonoBehaviour
 
     private void SpawnPipe()
     {
-        SpawnOne(this.spawnPos);
-        GetSpawnPosition();
+        float heigh = Random.Range(deltaY / 2, deltaY);
+        float newY = Mathf.Clamp(lastY + Mathf.Sign(Random.Range(-1, 1)) * heigh, minY, maxY);
+        lastY = newY;
+        Vector3 spawnPos = new(transform.position.x, lastY, 0);
+        SpawnOne(spawnPos);
+
         float random = Random.Range(0, 1 + GameManager.Instance.proportion);
         if (random <= 1 || currentContinuous > maxContinuous)// 
         {
@@ -77,15 +80,5 @@ public class PipeSpawn : MonoBehaviour
             pipe.SetActive(true);
         }
     }
-    private void OnEnable()
-    {
-        GetSpawnPosition();
-    }
-    private void GetSpawnPosition()
-    {
-        float heigh = Random.Range(deltaY / 2, deltaY);
-        float newY = Mathf.Clamp(lastY + Mathf.Sign(Random.Range(-1, 1)) * heigh, minY, maxY);
-        lastY = newY;
-        spawnPos = new(transform.position.x, lastY, 0);
-    }
+
 }

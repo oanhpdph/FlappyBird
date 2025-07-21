@@ -29,7 +29,7 @@ public class Score : MonoBehaviour
     {
         currentScore++;
         score.text = currentScore.ToString();
-        GameManager.Instance.speedPipe = GameManager.Instance.speedPipe + currentScore / 100;
+        GameManager.Instance.speedPipe = GameManager.Instance.speedPipe + currentScore / 80;
         GameManager.Instance.proportion = Mathf.Clamp((float)currentScore / 100, 0, 0.3f);
         UpdateHighScore();
         AudioManager.Instance.PlayAudioPoint();
